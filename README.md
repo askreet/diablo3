@@ -7,7 +7,7 @@ heroes and item basics about what they have equipped.
 See the test directory for some basic examples.  If you're good with Ruby, 
 I'd be happy to have someone help me implment all the features of the API.
 
-[d]: https://github.com/Blizzard/d3-api-docs "Diablo 3 API"
+[Diablo 3 API]: https://github.com/Blizzard/d3-api-docs "Diablo 3 API"
 
 License
 -------
