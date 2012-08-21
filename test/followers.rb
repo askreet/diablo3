@@ -1,5 +1,5 @@
 #
-# Display the items equipped by a hero, by name.
+# Display the items equipped on each follower.
 #
 
 $: << File.expand_path(File.dirname(__FILE__)) + "/../lib/"
@@ -13,9 +13,9 @@ hero_name = "Dhreyic"
 
 @d = Diablo3.new('us', battletag_name, battletag_code)
 
-@d.heroes.each do |hero|
+@d.heroes.select {|s| s.name == hero_name}.first.followers.each do |follower, follower_data|
   puts 
-  puts hero.one_liner
-  puts hero.items.item_list
+  puts follower
+  puts follower_data.items.item_list
   puts
 end

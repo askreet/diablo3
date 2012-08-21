@@ -13,6 +13,7 @@ require 'pp'
 # Require the rest of the Diablo3 classes, stored in separate files:
 require 'diablo3/hero'
 require 'diablo3/item'
+require 'diablo3/follower'
 
 class Diablo3
 
@@ -60,8 +61,16 @@ class Diablo3
     end
   
   end
-    
+
 end
 
-  
+class String
+  def underscore
+    self.gsub(/::/, '/').
+    gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+    gsub(/([a-z\d])([A-Z])/,'\1_\2').
+    tr("-", "_").
+    downcase
+  end
+end
 

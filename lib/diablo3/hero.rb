@@ -54,7 +54,14 @@ class Diablo3
     end
     
     def followers
-      # TODO
+      if @followers.nil?
+        @followers = {}
+        self.hero_data['followers'].each do |name, follower_hash|
+          @followers[name.to_sym] = Diablo3::Follower.new(follower_hash, @configuration)
+        end
+      end
+      
+      @followers
     end
     
     def stats

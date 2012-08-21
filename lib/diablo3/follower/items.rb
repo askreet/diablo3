@@ -1,16 +1,15 @@
 #
-# The Diablo3::Hero::Items class associates Diablo3::Item objects to positions
-# in the character paperdoll, and can be accessed by Diablo3::Hero.items.
+# The Diablo3::Follower::Items class associates Diablo3::Item objects to positions
+# in the follower paperdoll, and can be accessed by Diablo3::Follower.items.
 #
 class Diablo3
   
-  class Hero
+  class Follower
     
     class Items
 
-      ValidItemSlots = %w(head torso feet hands shoulders
-                          legs bracers main_hand off_hand
-                          waist right_finger left_finger neck)
+      ValidItemSlots = %w(main_hand off_hand special
+                          right_finger left_finger neck)
       
       def initialize(items_json, configuration)
         
