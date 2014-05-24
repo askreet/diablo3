@@ -16,9 +16,8 @@ require 'diablo3/item'
 require 'diablo3/follower'
 
 class Diablo3
-
   attr_reader :battletag_name, :battletag_code, :region
-  
+
   # Objects/data obtained from the API
   attr_reader :heroes, :artisans, :progression
   attr_reader :hardcore_artisans, :hardcore_progression
@@ -30,9 +29,7 @@ class Diablo3
   attr_reader :kills
   attr_reader :time_played
 
-  
   def initialize(region, battletag_name, battletag_code)
-
     # TODO: Load this data based on specified region.
     # TODO: Throw an exception if region is invalid.
     # TODO: Throw an exception if battletag contains invalid region,
@@ -42,26 +39,24 @@ class Diablo3
     # Load data into a single hash that can be passed to subobject
     # initializers, since they will need to make additional requests.
     server, port = ['us.battle.net', 80]
-    
-    @configuration = { 
+
+    @configuration = {
       :conn        => Net::HTTP.new(server, port),
       :profile_url => "/api/d3/profile/#{battletag_name}-#{battletag_code.to_s}/"
     }
-    
+
     # TODO: Wrapper to Fetch JSON and keep an eye on return codes or
     #       known error messages that you might receive if the character
     #       does not exist, etc.
     @profile_json = JSON.parse(@configuration[:conn].get(@configuration[:profile_url]).body)
-    
+
     # For each Hero, create a new Diablo3::Hero object and store in @heroes
     @heroes = []
-    
+
     @profile_json['heroes'].each do |hash|
       @heroes << Diablo3::Hero.new(hash, @configuration)
     end
-  
   end
-
 end
 
 class String
@@ -73,4 +68,3 @@ class String
     downcase
   end
 end
-

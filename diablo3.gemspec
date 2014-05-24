@@ -5,10 +5,12 @@ Gem::Specification.new do |s|
   s.description = "Gem for accessing Blizzards Diablo 3 web api"
   s.authors     = ["askreet"]
   s.email       = ''
-  s.files       = ['lib/**/*.rb',
+  s.files       = Dir['lib/**/*.rb',
                       'bin/*',
                       '[A-Z]*',
                       'test/**/*'].to_a
   s.platform		= Gem::Platform::RUBY
   s.homepage    = 'https://github.com/askreet/diablo3'
+
+  s.add_runtime_dependency('faraday')
 end
