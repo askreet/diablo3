@@ -1,0 +1,149 @@
+{
+"heroes" : [ {
+"paragonLevel" : 54,
+"name" : "April",
+"id" : 47460921,
+"level" : 70,
+"hardcore" : true,
+"gender" : 1,
+"dead" : false,
+"class" : "crusader",
+"last-updated" : 1400808157
+}, {
+"paragonLevel" : 54,
+"name" : "Francium",
+"id" : 47362262,
+"level" : 70,
+"hardcore" : true,
+"gender" : 0,
+"dead" : false,
+"class" : "wizard",
+"last-updated" : 1400948570
+}, {
+"paragonLevel" : 88,
+"name" : "Dhreyic",
+"id" : 3252296,
+"level" : 70,
+"hardcore" : false,
+"gender" : 0,
+"dead" : false,
+"class" : "barbarian",
+"last-updated" : 1400284454
+}, {
+"paragonLevel" : 88,
+"name" : "Angel",
+"id" : 40953592,
+"level" : 70,
+"hardcore" : false,
+"gender" : 1,
+"dead" : false,
+"class" : "wizard",
+"last-updated" : 1399749519
+}, {
+"paragonLevel" : 88,
+"name" : "Xavier",
+"id" : 43604314,
+"level" : 70,
+"hardcore" : false,
+"gender" : 0,
+"dead" : false,
+"class" : "crusader",
+"last-updated" : 1398301362
+}, {
+"paragonLevel" : 88,
+"name" : "Maki",
+"id" : 9598326,
+"level" : 67,
+"hardcore" : false,
+"gender" : 0,
+"dead" : false,
+"class" : "witch-doctor",
+"last-updated" : 1397876127
+}, {
+"paragonLevel" : 88,
+"name" : "Angelica",
+"id" : 20276504,
+"level" : 61,
+"hardcore" : false,
+"gender" : 1,
+"dead" : false,
+"class" : "monk",
+"last-updated" : 1397879715
+}, {
+"paragonLevel" : 88,
+"name" : "Malcolm",
+"id" : 17714509,
+"level" : 60,
+"hardcore" : false,
+"gender" : 0,
+"dead" : false,
+"class" : "demon-hunter",
+"last-updated" : 1395500467
+}, {
+"paragonLevel" : 54,
+"name" : "Maki",
+"id" : 8441315,
+"level" : 24,
+"hardcore" : true,
+"gender" : 0,
+"dead" : false,
+"class" : "witch-doctor",
+"last-updated" : 1400364170
+}, {
+"paragonLevel" : 54,
+"name" : "Sean",
+"id" : 48073945,
+"level" : 22,
+"hardcore" : true,
+"gender" : 0,
+"dead" : false,
+"class" : "monk",
+"last-updated" : 1399772543
+}, {
+"paragonLevel" : 54,
+"name" : "Nairabrab",
+"id" : 42165395,
+"level" : 17,
+"hardcore" : true,
+"gender" : 0,
+"dead" : false,
+"class" : "barbarian",
+"last-updated" : 1394771111
+}, {
+"paragonLevel" : 54,
+"name" : "Sparklebow",
+"id" : 47508370,
+"level" : 11,
+"hardcore" : true,
+"gender" : 0,
+"dead" : false,
+"class" : "demon-hunter",
+"last-updated" : 1398734602
+} ],
+"lastHeroPlayed" : 47362262,
+"lastUpdated" : 1400948570,
+"kills" : {
+"monsters" : 297731,
+"elites" : 18595,
+"hardcoreMonsters" : 76857
+},
+"timePlayed" : {
+"barbarian" : 1.0,
+"crusader" : 0.176,
+"demon-hunter" : 0.058,
+"monk" : 0.128,
+"witch-doctor" : 0.412,
+"wizard" : 0.359
+},
+"fallenHeroes" : [ ],
+"paragonLevel" : 88,
+"paragonLevelHardcore" : 54,
+"battleTag" : "Segfault#1483",
+"progression" : {
+"act1" : true,
+"act2" : true,
+"act3" : true,
+"act4" : true,
+"act5" : true
+}
+}

@@ -1,70 +1,73 @@
-#
-# Diablo3 API Gem
-#
-# Released under MIT license, see LICENCE.TXT for more information
-#
-
-# TODO: Better way to do this with Bundler?
-require 'rubygems'
-require 'net/http'
-require 'json'
-require 'pp'
-
 # Require the rest of the Diablo3 classes, stored in separate files:
-require 'diablo3/hero'
+require 'diablo3/connection'
+require 'diablo3/container'
+require 'diablo3/heroes'
 require 'diablo3/item'
 require 'diablo3/follower'
+require 'diablo3/util'
 
 class Diablo3
-  attr_reader :battletag_name, :battletag_code, :region
+  extend Util
 
-  # Objects/data obtained from the API
-  attr_reader :heroes, :artisans, :progression
-  attr_reader :hardcore_artisans, :hardcore_progression
+  Kills = Struct.new(:monsters, :elites, :hardcore_monsters)
 
-  # TODO: Does this work?  Mine is empty but I have fallen hardcore characters.
+  # Data mapped into Ruby objects already:
+  attr_reader :heroes
+
+  attr_reader :last_hero_played
+  attr_reader :last_updated
+  attr_reader :kills
+
+  # Not sure how useful this data is, as it's not in real time, but a relative
+  # time to the most played class, which is represented by 1.0.
+  attr_reader :time_played
   attr_reader :fallen_heroes
 
-  # Not sure how I want to represent these in Ruby
-  attr_reader :kills
-  attr_reader :time_played
-
   def initialize(region, battletag_name, battletag_code)
-    # TODO: Load this data based on specified region.
-    # TODO: Throw an exception if region is invalid.
-    # TODO: Throw an exception if battletag contains invalid region,
-    #       possibly by comparing with a region-specific regexp.
-    # TODO: Throw an exeception if battletag code is not a number.
-    # TODO: Is the protocol always HTTP?
-    # Load data into a single hash that can be passed to subobject
-    # initializers, since they will need to make additional requests.
-    server, port = ['us.battle.net', 80]
+    @conn = Diablo3::Connection.new(
+      "#{region}.battle.net",
+      "/api/d3/profile/#{battletag_name}-#{battletag_code}"
+    )
 
-    @configuration = {
-      :conn        => Net::HTTP.new(server, port),
-      :profile_url => "/api/d3/profile/#{battletag_name}-#{battletag_code.to_s}/"
-    }
+    @profile = @conn.get('/')
 
-    # TODO: Wrapper to Fetch JSON and keep an eye on return codes or
-    #       known error messages that you might receive if the character
-    #       does not exist, etc.
-    @profile_json = JSON.parse(@configuration[:conn].get(@configuration[:profile_url]).body)
+    load_heroes
+    load_fallen_heroes
 
+    # TODO: Can this be nil if the last hero played was fallen?
+    @last_hero_played = @heroes.by_id(@profile['lastHeroPlayed'])
+    @last_updated = Time.at(@profile['lastUpdated'])
+
+    @kills = Kills.new(@profile['kills']['monsters'],
+                       @profile['kills']['elites'],
+                       @profile['kills']['hardcoreMonsters'])
+  end
+
+  def load_heroes
     # For each Hero, create a new Diablo3::Hero object and store in @heroes
-    @heroes = []
-
-    @profile_json['heroes'].each do |hash|
-      @heroes << Diablo3::Hero.new(hash, @configuration)
+    @heroes = Heroes.new
+    @profile['heroes'].each do |hash|
+      @heroes.add(Hero.new(hash, @conn))
     end
   end
-end
 
-class String
-  def underscore
-    self.gsub(/::/, '/').
-    gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
-    gsub(/([a-z\d])([A-Z])/,'\1_\2').
-    tr("-", "_").
-    downcase
+  def load_fallen_heroes
+    # TODO: For whatever reason, fallenHeroes include all item data, etc, and
+    #       cannot be looked up by heroId.
+    @fallen_heroes = Heroes.new
+    @profile['fallenHeroes'].each do |hash|
+      @fallen_heroes.add(Hero.new(hash, @conn))
+    end
+  end
+
+  # Define methods for data which maps directly to a snake-case'd version
+  # of the key in @profile, generate simple reader methods.
+  map_fields = %w(battleTag paragonLevel paragonLevelHardcore progression
+                  timePlayed)
+
+  map_fields.each do |field|
+    define_method(snakeify(field).to_sym) do
+      @profile[field]
+    end
   end
 end
